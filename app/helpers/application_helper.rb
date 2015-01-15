@@ -293,9 +293,4 @@ module ApplicationHelper
 
     has_fulfillments
   end
-
-  # If any of the subjects under the given arm have completed appointments, returns true
-  def arm_has_subject_data? arm
-    arm.subjects ? arm.subjects.any?{|subject| subject.calendar.appointments.any?{|appt| !appt.completed_at.nil?}} : false
-  end
 end

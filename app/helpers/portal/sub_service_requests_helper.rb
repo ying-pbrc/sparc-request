@@ -85,6 +85,18 @@ module Portal::SubServiceRequestsHelper
     can_view
   end
 
+  def ssr_has_completed_subject_data? ssr
+    has_data = false
+    arms = ssr.service_request.protocol.arms
+    arms.each do |arm|
+      if arm.has_subject_data?
+        has_data = true
+      end
+    end
+
+    has_data
+  end
+
   def clinical_provider_cores(user)
     cores = []
     user.clinical_providers.each do |provider|

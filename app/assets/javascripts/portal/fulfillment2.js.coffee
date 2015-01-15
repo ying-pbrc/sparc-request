@@ -137,6 +137,23 @@ $(document).ready ->
           success: ->
             $().toastmessage('showSuccessToast', "#{klass.humanize()}" + I18n["fulfillment_js"]["deleted"]);
   )
+  
+  $(document).on('click', '.delete-ssr-button', ->
+    id = $(this).data("id")
+    has_data = $(this).data("ssr_has_completed_subject_data") || null
+    if has_data
+      alert(I18n["request_has_subject_data"])
+    else if confirm(confirm_message)
+      $.ajax
+        type: 'DELETE'
+        url: "portal/admin/sub_service_request/#{id}"
+        data: JSON.stringify(data)
+        dataType: "script"
+        contentType: "application/json; charset=utf-8"
+        success: ->
+          $().toastmessage('showSuccessToast', "Sub Service Request" + I18n["fulfillment_js"]["deleted"]);
+
+  )
 
   $('#cwf_building_dialog').dialog
     dialogClass: "no-close"

@@ -61,6 +61,11 @@ class Arm < ActiveRecord::Base
     return !name.nil? && name.length > 0
   end
 
+  # If any of the subjects under the given arm have completed appointments, returns true
+  def has_subject_data?
+    self.subjects ? self.subjects.any?{|subject| subject.calendar.appointments.any?{|appt| !appt.completed_at.nil?}} : false
+  end
+
   def create_line_items_visit line_item
     # if visit_count is nil then set it to 1
     self.update_attribute(:visit_count, 1) if self.visit_count.nil?
