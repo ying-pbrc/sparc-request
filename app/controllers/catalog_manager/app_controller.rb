@@ -30,4 +30,8 @@ class CatalogManager::AppController < ActionController::Base
     @user = current_identity
     session['uid'] = @user.nil? ? nil : @user.id
   end
+
+  def current_user
+    current_identity
+  end
 end
