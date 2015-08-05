@@ -404,6 +404,12 @@ a.catalog-button,
   height: 35px;
   font-size: 13px;
   margin-top: 63px;
+  border: none;
+  width: 150px;
+}
+
+.add-user{
+  padding-left: 185px;
 }
 
 .blue-button a {
