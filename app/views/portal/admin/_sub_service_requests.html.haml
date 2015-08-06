@@ -1,8 +1,14 @@
 #custom-toolbar
   / = select_tag 'index_selectpicker', options_for_select((t(:sub_service_request)[:statuses].values.zip t(:sub_service_request)[:statuses].keys), 'All'), class: 'selectpicker'
 .bootstrap-table-dropdown-overflow
-  %table.sub_service_requests.custom_striped{id: "sub_service_request-list", data: {toggle: 'table', search: "true", "show-columns" => "true", url: portal_admin_index_path(format: :json), toolbar: "#custom-toolbar"}}
+  %table.sub_service_requests.custom_striped{id: "sub_service_request-list", data: {toggle: 'table', search: "true", "show-columns" => "true", striped: 'true', url: portal_admin_index_path(format: :json), toolbar: "#custom-toolbar"}}
     %thead
       %tr
+        %th{data: {class: 'ssr_id', align: 'center', sortable: 'true', field: 'ssr_id'}}
+          = t(:admin_dashboard)[:id]
+        %th{data: {class: 'status', align: 'center', sortable: 'true', field: 'status'}}
+          = t(:admin_dashboard)[:status]
+        %th{data: {class: 'short_title', align: 'center', sortable: 'true', field: 'short_title'}}
+          = t(:admin_dashboard)[:short_title]
         %th{data: {class: 'organizations', align: 'center', sortable: "true", field: "organizations"}}
           = t(:admin_root)[:orgs]

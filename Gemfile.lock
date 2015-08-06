@@ -58,6 +58,8 @@ GEM
       rails (>= 3.1)
     bcrypt-ruby (3.0.1)
     bluecloth (2.2.0)
+    bootstrap-sass (3.1.1.0)
+      sass (~> 3.2)
     builder (3.0.4)
     bullet (4.8.0)
       activesupport
@@ -398,6 +400,7 @@ DEPENDENCIES
   axlsx
   axlsx_rails
   bluecloth
+  bootstrap-sass (= 3.1.1.0)
   bullet
   cache_digests
   capistrano

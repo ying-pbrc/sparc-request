@@ -1,3 +1,6 @@
 json.(sub_service_request)
 
+json.ssr_id sub_service_request.ssr_id
+json.status format_status(sub_service_request)
+json.short_title format_short_title(sub_service_request)
 json.organizations sub_service_request.org_tree_display

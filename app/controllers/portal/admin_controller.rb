@@ -33,7 +33,11 @@ class Portal::AdminController < Portal::BaseController
       format.html { render }
 
       format.json do
-        @sub_service_requests = @user.admin_service_requests_by_status(nil, admin_orgs)
+        @sub_service_requests = []
+        sub_service_requests = @user.admin_service_requests_by_status(nil, admin_orgs)
+        @sub_service_requests << sub_service_requests.first
+        @sub_service_requests << sub_service_requests[1]
+        @sub_service_requests << sub_service_requests[2]
 
         render
       end

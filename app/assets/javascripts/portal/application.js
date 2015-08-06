@@ -39,6 +39,7 @@
 //= require form_fx_manager
 //= require_tree .
 //= require ../service_calendar
+//= require bootstrap-sprockets
 //= require bootstrap-table.min
 
 window.Sparc = {}

@@ -37,4 +37,16 @@ module Portal::AdminHelper
 
     "#{protocol.id}-#{ssr.ssr_id}"
   end
+
+  def format_short_title(ssr)
+    if ssr.service_request.protocol.present?
+      ssr.service_request.protocol.short_title
+    else
+      "-"
+    end
+  end
+
+  def format_status(ssr)
+    AVAILABLE_STATUSES[ssr.status]
+  end
 end
