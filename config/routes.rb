@@ -170,37 +170,6 @@ SparcRails::Application.routes.draw do
     root :to => 'catalog#index'
   end
 
-  ##### Study Tracker/Clinical Work Fulfillment Portal#####
-  namespace :study_tracker, :path => "clinical_work_fulfillment" do
-    match 'appointments/add_note' => 'calendars#add_note'
-    match 'calendars/delete_toast_messages' => 'calendars#delete_toast_messages'
-    match 'calendars/change_visit_group' => 'calendars#change_visit_group'
-    match 'appointments/add_service' => 'calendars#add_service'
-
-    root :to => 'home#index'
-
-    resources :home do
-      collection do
-        get :billing_report_setup
-        post :billing_report
-      end
-    end
-
-    resources :sub_service_requests do
-      resources :calendars
-      resources :cover_letters
-    end
-
-    resources :service_requests
-    resources :subjects
-
-    resources :protocols do
-      member do
-        put :update_billing_business_manager_static_email
-      end
-    end
-  end
-
   ##### sparc-user routes brought in and namespaced
   namespace :portal do
 
