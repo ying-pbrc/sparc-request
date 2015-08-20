@@ -430,31 +430,6 @@ RSpec.describe "admin fulfillment tab", js: true do
       wait_for_javascript_to_finish
       expect(Arm.find(:all).size).to eq(number_of_arms)
     end
-
-    it 'should not allow you to delete an arm that has patient data' do
-      number_of_arms = Arm.find(:all).size
-      subject = arm1.subjects.first
-      # appointment = create(:appointment, calendar_id: subject.calendar.id)
-      sub_service_request.update_attributes(in_work_fulfillment: true)
-      visit study_tracker_sub_service_request_path sub_service_request.id
-      click_link("Subject Tracker")
-      wait_for_javascript_to_finish
-
-      within("div#arm_#{arm1.id}") do
-        find("#schedule_#{subject.id}").click
-        wait_for_javascript_to_finish
-      end
-
-      visit portal_admin_sub_service_request_path(sub_service_request)
-      wait_for_javascript_to_finish
-      select "Arm", from: "arm_id"
-      accept_alert("This arm has subject data and can not be deleted.") do
-        find('.remove_arm_link').click()
-      end
-      wait_for_javascript_to_finish
-      expect(Arm.find(:all).size).to eq(number_of_arms)
-    end
-
   end
 
   describe "notes" do

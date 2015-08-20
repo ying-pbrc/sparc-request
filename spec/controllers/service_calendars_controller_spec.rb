@@ -350,7 +350,7 @@ RSpec.describe ServiceCalendarsController do
     build_project
     build_arms
 
-    describe 'POST select_calendar_row' do
+    describe 'get select_calendar_row' do
 
       it 'should set line item' do
         liv = LineItemsVisit.for(arm1, line_item1)
@@ -359,8 +359,8 @@ RSpec.describe ServiceCalendarsController do
         add_visits_to_arm_line_item(arm1, line_item1, 3)
 
         session[:service_request_id] = service_request.id
-        post :select_calendar_row, {
-          :id                   => service_request.id,
+        get :select_calendar_row, {
+          :service_request_id   => service_request.id,
           :line_items_visit_id  => liv.id,
           :format               => :js
         }.with_indifferent_access
@@ -375,8 +375,8 @@ RSpec.describe ServiceCalendarsController do
         add_visits_to_arm_line_item(arm1, line_item1, 3)
 
         session[:service_request_id] = service_request.id
-        post :select_calendar_row, {
-          :id                   => service_request.id,
+        get :select_calendar_row, {
+          :service_request_id   => service_request.id,
           :line_items_visit_id  => liv.id,
           :format               => :js
         }.with_indifferent_access
@@ -397,7 +397,7 @@ RSpec.describe ServiceCalendarsController do
       end
     end
 
-    describe 'GET unselect_calendar_row' do
+    describe 'get unselect_calendar_row' do
       it 'should set line item' do
         liv = LineItemsVisit.for(arm1, line_item1)
 
@@ -405,8 +405,8 @@ RSpec.describe ServiceCalendarsController do
         add_visits_to_arm_line_item(arm1, line_item1, 3)
 
         session[:service_request_id] = service_request.id
-        post :unselect_calendar_row, {
-          :id                   => service_request.id,
+        get :unselect_calendar_row, {
+          :service_request_id   => service_request.id,
           :line_items_visit_id  => liv.id,
           :format               => :js
         }.with_indifferent_access
@@ -421,8 +421,8 @@ RSpec.describe ServiceCalendarsController do
         add_visits_to_arm_line_item(arm1, line_item1, 3)
 
         session[:service_request_id] = service_request.id
-        post :unselect_calendar_row, {
-          :id                   => service_request.id,
+        get :unselect_calendar_row, {
+          :service_request_id   => service_request.id,
           :line_items_visit_id  => liv.id,
           :format               => :js
         }.with_indifferent_access
@@ -443,7 +443,7 @@ RSpec.describe ServiceCalendarsController do
       end
     end
 
-    describe 'GET select_calendar_column' do
+    describe 'get select_calendar_column' do
       it 'should update each of the visits' do
         pricing_map1.update_attribute(:unit_minimum, 100)
         pricing_map2.update_attribute(:unit_minimum, 100)
@@ -454,8 +454,8 @@ RSpec.describe ServiceCalendarsController do
         add_visits_to_arm_line_item(arm1, line_item3, 3)
 
         session[:service_request_id] = service_request.id
-        post :select_calendar_column, {
-          :id            => service_request.id,
+        get :select_calendar_column, {
+          :service_request_id  => service_request.id,
           :column_id     => 2, # 1-based
           :arm_id        => arm1.id,
           :format        => :js,
@@ -477,7 +477,7 @@ RSpec.describe ServiceCalendarsController do
       end
     end
 
-    describe 'GET unselect_calendar_column' do
+    describe 'get unselect_calendar_column' do
       it 'should update each of the visits' do
         pricing_map1.update_attribute(:unit_minimum, 100)
         pricing_map2.update_attribute(:unit_minimum, 100)
@@ -488,8 +488,8 @@ RSpec.describe ServiceCalendarsController do
         add_visits_to_arm_line_item(arm1, line_item3, 3)
 
         session[:service_request_id] = service_request.id
-        post :unselect_calendar_column, {
-          :id            => service_request.id,
+        get :unselect_calendar_column, {
+          :service_request_id  => service_request.id,
           :column_id     => 2, # 1-based
           :arm_id        => arm1.id,
           :format        => :js,

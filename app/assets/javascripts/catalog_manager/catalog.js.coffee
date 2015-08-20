@@ -47,7 +47,8 @@ $ ->
     submitRateChanges: (entity_id, percentage, effective_date, display_date) ->
       data = { entity_id: entity_id, percentage: percentage, effective_date: Sparc.config.readyMyDate(effective_date, 'send'), display_date: Sparc.config.readyMyDate(display_date, 'send')}
       $.ajax({
-        url: "/catalog_manager/update_pricing_maps"
+        url: "/catalog_manager/catalog/update_pricing_maps"
+        type: 'get'
         data: data
         success: ->
         error: ->
@@ -58,7 +59,8 @@ $ ->
       data = {date: date, entity_id: entity_id, str: str}
       date_element = $(changed_element)
       $.ajax({
-        url: "/catalog_manager/validate_pricing_map_dates"
+        url: "/catalog_manager/catalog/validate_pricing_map_dates"
+        type: "get"
         data: data
         success: (data) ->
           if data.same_dates == 'true'
@@ -91,7 +93,7 @@ $ ->
     verify_valid_pricing_setups()
 
   verify_valid_pricing_setups = () ->
-    $.get '/catalog_manager/verify_valid_pricing_setups', (data) ->
+    $.get '/catalog_manager/catalog/verify_valid_pricing_setups', (data) ->
       if data == 'true'
         $(".pricing_setup_error").hide()
       else
@@ -115,7 +117,7 @@ $ ->
 
   $('#program').live 'change', ->
     new_program_id = $(this).val()
-    $.post '/catalog_manager/services/update_cores/' + new_program_id, (data) ->
+    $.post "/catalog_manager/services/update_cores?id=#{new_program_id}", (data) ->
       $('#core_list').html(data)
 
   $('#catalog').jstree

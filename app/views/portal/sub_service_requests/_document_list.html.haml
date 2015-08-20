@@ -38,7 +38,7 @@
         - if not review
           %td
             .actions_container
-              = link_to image_tag('portal/edit_blue.png'), "/portal/admin/sub_service_requests/#{@sub_service_request.id}/edit_document/#{doc.id}", :remote => true, :class => 'document_edit'
-              = link_to image_tag('portal/delete_red.png'), "/portal/admin/sub_service_requests/#{@sub_service_request.id}/delete_document/#{doc.id}", :remote => true, :class => 'document_delete'
+              = link_to image_tag('portal/edit_blue.png'), "/portal/admin/sub_service_requests/#{@sub_service_request.id}/edit_documents?document_id=#{doc.id}", :remote => true, :class => 'document_edit'
+              = link_to image_tag('portal/delete_red.png'), "/portal/admin/sub_service_requests/#{@sub_service_request.id}/delete_documents?document_id=#{doc.id}", :remote => true, :class => 'document_delete'
 - else
   %div= t("documents.no_documents")

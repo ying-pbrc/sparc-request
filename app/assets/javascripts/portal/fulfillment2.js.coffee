@@ -76,6 +76,12 @@ $(document).ready ->
     filtered_keys = filterNonKeys(objKeys)
     filtered_keys[0].replace('_id', '')
 
+  pluralize_string = (string) ->
+    if string.slice(-1) == 'y'
+      return string.slice(0,-1) + "ies"
+    else
+      return string + "s"
+
   $(document).on('change', '.fulfillment_data', ->
     klass = getObjKlass(this)
     object_id = $(this).data("#{klass}_id")
@@ -121,7 +127,7 @@ $(document).ready ->
         if confirm(confirm_message)
           $.ajax
             type: 'DELETE'
-            url:  "/portal/admin/#{klass}s/#{object_id}"
+            url:  "/portal/admin/#{pluralize_string(klass)}/#{object_id}"
             data: JSON.stringify(data)
             dataType: "script"
             contentType: 'application/json; charset=utf-8'
@@ -130,7 +136,7 @@ $(document).ready ->
       else
         $.ajax
           type: 'DELETE'
-          url:  "/portal/admin/#{klass}s/#{object_id}"
+          url:  "/portal/admin/#{pluralize_string(klass)}/#{object_id}"
           data: JSON.stringify(data)
           dataType: "script"
           contentType: 'application/json; charset=utf-8'
@@ -149,12 +155,11 @@ $(document).ready ->
   cwf_callback = ->
     $('#cwf_building_dialog').dialog('close')
 
-
   put_attribute = (id, klass, data, callback) ->
     callback ?= -> return null
     $.ajax
       type: 'PUT'
-      url:  "/portal/admin/#{klass}s/#{id}/update_from_fulfillment"
+      url:  "/portal/admin/#{pluralize_string(klass)}/#{id}/update_from_fulfillment"
       data: JSON.stringify(data)
       dataType: "script"
       contentType: 'application/json; charset=utf-8'
@@ -577,7 +582,7 @@ $(document).ready ->
   delete_closed_toast = (toast_id) ->
     $.ajax
       type: 'DELETE'
-      url:  "/portal/admin/delete_toast_message/#{toast_id}"
+      url:  "/portal/admin/delete_toast_message?id=#{toast_id}"
 
   send_to_epic = ->
     ssr_id = $(this).attr('sub_service_request_id')

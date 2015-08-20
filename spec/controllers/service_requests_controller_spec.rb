@@ -589,7 +589,7 @@ RSpec.describe ServiceRequestsController do
       session[:service_request_id] = service_request.id
       post :add_service, {
         :id          => service_request.id,
-        :service_id  => new_service.id,
+        :service_id  => "#{new_service.id}",
         :format      => :js
       }.with_indifferent_access
       expect(response.body).to eq 'Service exists in line items'
@@ -601,7 +601,7 @@ RSpec.describe ServiceRequestsController do
       session[:service_request_id] = service_request.id
       post :add_service, {
         :id          => service_request.id,
-        :service_id  => new_service.id,
+        :service_id  => "#{new_service.id}",
         :format      => :js
       }.with_indifferent_access
 
@@ -623,7 +623,7 @@ RSpec.describe ServiceRequestsController do
           optional: false)
 
       session[:service_request_id] = service_request.id
-      post :add_service, { id: service_request.id, service_id: new_service.id, format: :js }.with_indifferent_access
+      post :add_service, { id: service_request.id, service_id: "#{new_service.id}", format: :js }.with_indifferent_access
 
       # there was one service and one line item already, then we added
       # one
@@ -648,7 +648,7 @@ RSpec.describe ServiceRequestsController do
       session[:service_request_id] = service_request.id
       post :add_service, {
         :id          => service_request.id,
-        :service_id  => new_service.id,
+        :service_id  => "#{new_service.id}",
         :format      => :js
       }.with_indifferent_access
 
@@ -674,7 +674,7 @@ RSpec.describe ServiceRequestsController do
       [ new_service, new_service2, new_service3 ].each do |service_to_add|
         post :add_service, {
           :id          => service_request.id,
-          :service_id  => service_to_add.id,
+          :service_id  => "#{service_to_add.id}",
           :format      => :js
         }.with_indifferent_access
       end
@@ -693,7 +693,7 @@ RSpec.describe ServiceRequestsController do
       [ new_service, new_service2, new_service3 ].each do |service_to_add|
         post :add_service, {
           :id          => service_request.id,
-          :service_id  => service_to_add.id,
+          :service_id  => "#{service_to_add.id}",
           :format      => :js
         }.with_indifferent_access
       end
@@ -734,7 +734,7 @@ RSpec.describe ServiceRequestsController do
       post :remove_service, {
         :id            => service_request.id,
         :service_id    => service1.id,
-        :line_item_id  => line_item1.id,
+        :line_item_id  => "#{line_item1.id}",
         :format        => :js,
       }.with_indifferent_access
 
@@ -759,7 +759,7 @@ RSpec.describe ServiceRequestsController do
       post :remove_service, {
         :id            => service_request.id,
         :service_id    => service1.id,
-        :line_item_id  => line_item1.id,
+        :line_item_id  => "#{line_item1.id}",
         :format        => :js,
       }.with_indifferent_access
 
@@ -770,7 +770,7 @@ RSpec.describe ServiceRequestsController do
       post :remove_service, {
         :id            => service_request.id,
         :service_id    => service2.id,
-        :line_item_id  => line_item2.id,
+        :line_item_id  => "#{line_item2.id}",
         :format        => :js,
       }.with_indifferent_access
 
@@ -781,7 +781,7 @@ RSpec.describe ServiceRequestsController do
       post :remove_service, {
         :id            => service_request.id,
         :service_id    => service3.id,
-        :line_item_id  => line_item3.id,
+        :line_item_id  => "#{line_item3.id}",
         :format        => :js,
       }.with_indifferent_access
 
@@ -801,7 +801,7 @@ RSpec.describe ServiceRequestsController do
       post :remove_service, {
         :id            => service_request.id,
         :service_id    => service1.id,
-        :line_item_id  => line_item1.id,
+        :line_item_id  => "#{line_item1.id}",
         :format        => :js,
       }.with_indifferent_access
 
@@ -822,7 +822,7 @@ RSpec.describe ServiceRequestsController do
       post :remove_service, {
         :id            => service_request.id,
         :service_id    => service1.id,
-        :line_item_id  => line_item1.id,
+        :line_item_id  => "#{line_item1.id}",
         :format        => :js,
       }.with_indifferent_access
 
@@ -830,14 +830,14 @@ RSpec.describe ServiceRequestsController do
         post :remove_service, {
           :id            => service_request.id,
           :service_id    => service1.id,
-          :line_item_id  => line_item1.id,
+          :line_item_id  => "#{line_item1.id}",
           :format        => :js,
         }.with_indifferent_access
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
-  describe 'POST delete_documents' do
+  describe 'POST delete_document' do
     let!(:doc)  { Document.create(service_request_id: service_request.id) }
     let!(:ssr1) { create(:sub_service_request, service_request_id: service_request.id, organization_id: core.id)  }
     let!(:ssr2) { create(:sub_service_request, service_request_id: service_request.id, organization_id: core2.id) }
@@ -851,7 +851,7 @@ RSpec.describe ServiceRequestsController do
 
       it 'should set tr_id' do
         session[:service_request_id] = service_request.id
-        post :delete_documents, {
+        post :delete_document, {
           :id                => service_request.id,
           :document_id       => doc.id,
           :format            => :js,
@@ -861,7 +861,7 @@ RSpec.describe ServiceRequestsController do
 
       it 'should destroy the document if there is no sub service request' do
         session[:service_request_id] = service_request.id
-        post :delete_documents, {
+        post :delete_document, {
           :id                => service_request.id,
           :document_id       => doc.id,
           :format            => :js,
@@ -875,7 +875,7 @@ RSpec.describe ServiceRequestsController do
       it 'should destroy only the document for that sub service request if there is a sub service request' do
         session[:service_request_id] = service_request.id
         session[:sub_service_request_id] = ssr1.id
-        post :delete_documents, {
+        post :delete_document, {
           :id                      => service_request.id,
           :document_id             => doc.id,
           :format                  => :js,
@@ -888,7 +888,7 @@ RSpec.describe ServiceRequestsController do
     end
   end
 
-  describe 'POST edit_documents' do
+  describe 'POST edit_document' do
     let!(:doc)  { Document.create(service_request_id: service_request.id) }
     let!(:ssr1) { create(:sub_service_request, service_request_id: service_request.id, organization_id: core.id)  }
     let!(:ssr2) { create(:sub_service_request, service_request_id: service_request.id, organization_id: core2.id) }
@@ -902,7 +902,7 @@ RSpec.describe ServiceRequestsController do
 
       it 'should set document' do
         session[:service_request_id] = service_request.id
-        post :edit_documents, {
+        post :edit_document, {
           :id                      => service_request.id,
           :document_id             => doc.id,
           :format                  => :js,
@@ -912,7 +912,7 @@ RSpec.describe ServiceRequestsController do
 
       it 'should set service_list' do
         session[:service_request_id] = service_request.id
-        post :edit_documents, {
+        post :edit_document, {
           :id                      => service_request.id,
           :document_id             => doc.id,
           :format                  => :js,
@@ -936,9 +936,8 @@ RSpec.describe ServiceRequestsController do
 
       it 'should set service_list' do
         session[:service_request_id] = service_request.id
-        post :edit_documents, {
+        post :new_document, {
           :id                      => service_request.id,
-          :document_id             => doc.id,
           :format                  => :js,
         }.with_indifferent_access
         expect(assigns(:service_list)).to eq service_request.service_list.with_indifferent_access

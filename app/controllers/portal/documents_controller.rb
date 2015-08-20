@@ -25,7 +25,7 @@ class Portal::DocumentsController < Portal::BaseController
 
   # TODO: looks like this method is no longer used
   def download
-    document = Document.find(params[:document_id])
+    document = Document.find(params[:id])
     tempfile = open(document.url)
     send_data tempfile.read, :filename => document.title, :type => document.content_type
   end

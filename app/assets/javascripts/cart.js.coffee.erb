@@ -21,12 +21,14 @@
 addService = (sr_id, id) ->
   $.ajax
     type: 'POST'
-    url: "/service_requests/#{sr_id}/add_service/#{id}"
+    url: "/service_requests/#{sr_id}/add_service"
+    data: 'service_id' : "#{id}"
 
 removeService = (sr_id, id, move_on) ->
   $.ajax
     type: 'POST'
-    url: "/service_requests/#{sr_id}/remove_service/#{id}"
+    url: "/service_requests/#{sr_id}/remove_service"
+    data: 'line_item_id' : "#{id}"
     success: (data, textStatus, jqXHR) ->
       if move_on
         window.location.replace($("#user_portal_link").val())
