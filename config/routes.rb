@@ -26,9 +26,9 @@ SparcRails::Application.routes.draw do
 
   resources :identities, only: [:show] do
     member do
-      post  :show
       get   :approve_account
       get   :disapprove_account
+      post  :show
     end
 
     collection do
@@ -36,11 +36,11 @@ SparcRails::Application.routes.draw do
     end
   end
 
-  resources :reports, only: [:index] do
+  resources :reports, only: [] do
     member do
       get   :research_project_summary
-      post  :cwf_audit
       get   :cwf_subject
+      post  :cwf_audit
     end
 
     collection do
@@ -61,15 +61,15 @@ SparcRails::Application.routes.draw do
       get   :calendar_totals
       get   :service_subsidy
       get   :document_management
-      post  :navigate
       get   :refresh_service_calendar
       get   :save_and_exit
       get   :approve_changes
-      post  :add_service
-      post  :remove_service
       get   :delete_document
       get   :edit_document
       get   :new_document
+      post  :navigate
+      post  :add_service
+      post  :remove_service
     end
 
     collection do
@@ -87,6 +87,10 @@ SparcRails::Application.routes.draw do
       end
 
       collection do
+        get :select_calendar_row
+        get :unselect_calendar_row
+        get :select_calendar_column
+        get :unselect_calendar_column
         put :rename_visit
         put :set_day
         put :set_window_before
@@ -94,15 +98,11 @@ SparcRails::Application.routes.draw do
         put :update_otf_qty_and_units_per_qty
         put :move_visit_position
         put :show_move_visits
-        get :select_calendar_row
-        get :unselect_calendar_row
-        get :select_calendar_column
-        get :unselect_calendar_column
       end
     end
   end
 
-  resources :protocols, only: [:new, :create, :edit, :update, :destroy] do
+  resources :protocols, only: [:new, :create, :edit, :update] do
     member do
       get :approve_epic_rights
       get :push_to_epic
@@ -143,40 +143,40 @@ SparcRails::Application.routes.draw do
 
     resources :catalog, only: [:index] do
       collection do
-        post    :add_excluded_funding_source
-        delete  :remove_excluded_funding_source
-        post    :remove_associated_survey
-        post    :add_associated_survey
-        post    :remove_submission_email
         get     :update_pricing_maps
         get     :update_dates_on_pricing_maps
         get     :validate_pricing_map_dates
         get     :verify_valid_pricing_setups
+        post    :add_excluded_funding_source
+        post    :remove_associated_survey
+        post    :add_associated_survey
+        post    :remove_submission_email
+        delete  :remove_excluded_funding_source
       end
     end
 
     resources :services, only: [:show, :new, :create, :update] do
       collection do
+        get   :verify_parent_service_provider
+        get   :get_updated_rate_maps
+        get   :search
         post  :associate
         post  :disassociate
         post  :set_optional
         post  :set_linked_quantity
         post  :set_linked_quantity_total
-        get   :verify_parent_service_provider
-        get   :get_updated_rate_maps
         post  :update_cores
-        get   :search
       end
     end
 
     resources :identities, only: [] do
       collection do
+        get   :search
         post  :associate_with_org_unit
         post  :disassociate_with_org_unit
         post  :set_primary_contact
         post  :set_hold_emails
         post  :set_edit_historic_data
-        get   :search
         post  :set_view_draft_status
       end
     end
@@ -202,8 +202,8 @@ SparcRails::Application.routes.draw do
 
     resources :service_requests, only: [:show] do
       member do
-        put :update_line_item
         get :refresh_service_calendar
+        put :update_line_item
       end
     end
 
@@ -243,23 +243,23 @@ SparcRails::Application.routes.draw do
 
       resources :sub_service_requests, only: [:show, :destroy] do
         member do
+          get   :edit_documents
+          get   :delete_documents
           put   :update_from_fulfillment
           put   :update_from_project_study_information
           put   :push_to_epic
           put   :add_line_item
           put   :add_otf_line_item
-          post  :new_document
           put   :add_note
-          get   :edit_documents
-          get   :delete_documents
+          post  :new_document
         end
       end
 
       resources :protocols, only: [:index, :show, :new, :create, :edit, :update] do
         member do
+          get   :change_arm
           put   :update_protocol_type
           put   :update_from_fulfillment
-          get   :change_arm
           post  :add_arm
           post  :remove_arm
         end
@@ -299,8 +299,8 @@ SparcRails::Application.routes.draw do
       resources :service_requests, only: [:show] do
         member do
           put   :update_from_fulfillment
-          post  :add_per_patient_per_visit_visit
           put   :remove_per_patient_per_visit_visit
+          post  :add_per_patient_per_visit_visit
         end
       end
     end

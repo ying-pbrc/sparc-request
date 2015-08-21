@@ -40,9 +40,6 @@ class ReportsController < ApplicationController
     redirect_to root_path unless current_identity.is_super_user?
   end
 
-  def index
-  end
-
   def setup
     report = params[:report]
     @report = report.constantize.new

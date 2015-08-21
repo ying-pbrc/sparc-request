@@ -95,10 +95,6 @@ class ProtocolsController < ApplicationController
     end
   end
 
-  def destroy
-
-  end
-
   def set_protocol_type
     raise NotImplementedError
   end
