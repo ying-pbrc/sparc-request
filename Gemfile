@@ -48,6 +48,7 @@ gem 'savon', '~> 2.2.0'
 gem 'simplecov', require: false, group: :test
 gem 'sinatra'
 gem 'surveyor'
+gem 'therubyracer', '0.10.2', :platforms => :ruby
 gem 'uglifier', '>= 1.0.3'
 gem 'will_paginate'
 
@@ -69,6 +70,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'sqlite3'
   gem 'highline'
   gem 'spring'
   gem 'spring-commands-rspec'
