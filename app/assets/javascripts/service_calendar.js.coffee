@@ -44,6 +44,25 @@ $(document).ready ->
       arm_id = $(this).data("arm_id")
       calculate_max_rates(arm_id)
 
+  $(document).on('click', 'a.service_calendar_row', (event) ->
+    line_item_visit_billing = $(this).closest('.line_item').find('.line_item_visit_billing')
+    insurance_and_effort_billing = 0
+
+    $(line_item_visit_billing).siblings().each (i, element) ->
+      insurance_and_effort_billing += parseInt($(this).val(), 10)
+
+    if insurance_and_effort_billing >= 1
+      confirm_qty_change = confirm "Custom quantity will be erased."
+      if confirm_qty_change == false
+        x = event.isDefaultPrevented()
+        console.log(x)
+        console.log("false!")
+        # event.stopImmediatePropagation
+        event.preventDefault()
+        # event.stopPropagation()
+
+  )
+
   $('.line_item_visit_quantity').live 'change', ->
     $('.service_calendar_spinner').show()
     $.ajax
